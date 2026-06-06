@@ -1,0 +1,59 @@
+{
+  "_DashboardStats-BRcqZdNV.js": {
+    "file": "assets/DashboardStats-BRcqZdNV.js",
+    "name": "DashboardStats",
+    "imports": [
+      "_vendor-BjGxeCVp.js"
+    ]
+  },
+  "_client-CHQ1r00u.js": {
+    "file": "assets/client-CHQ1r00u.js",
+    "name": "client",
+    "imports": [
+      "_vendor-BjGxeCVp.js"
+    ]
+  },
+  "_vendor-BjGxeCVp.js": {
+    "file": "assets/vendor-BjGxeCVp.js",
+    "name": "vendor"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-C2CSl6M7.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-NsF2Q6xh.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_client-CHQ1r00u.js",
+      "_vendor-BjGxeCVp.js",
+      "_DashboardStats-BRcqZdNV.js"
+    ],
+    "css": [
+      "assets/app-C2CSl6M7.css"
+    ]
+  },
+  "resources/js/react.jsx": {
+    "file": "assets/react-DNID7CPB.js",
+    "name": "react",
+    "src": "resources/js/react.jsx",
+    "isEntry": true,
+    "imports": [
+      "_client-CHQ1r00u.js",
+      "_vendor-BjGxeCVp.js"
+    ]
+  },
+  "resources/js/vue.js": {
+    "file": "assets/vue-BiIEjjFY.js",
+    "name": "vue",
+    "src": "resources/js/vue.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-BjGxeCVp.js",
+      "_DashboardStats-BRcqZdNV.js"
+    ]
+  }
+}

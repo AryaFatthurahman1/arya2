@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hris-configmap
+  namespace: hris
+data:
+  APP_ENV: "production"
+  APP_DEBUG: "false"
+  DB_PORT: "3306"
+  DB_DATABASE: "hris_db"
+  DB_USERNAME: "hris_user"
+  REDIS_HOST: "hris-redis-service"
+  MFA_ENABLED: "true"
