@@ -1,1 +1,0 @@
-import{c as t}from"./vendor-BjGxeCVp.js";import{_ as a}from"./DashboardStats-BRcqZdNV.js";const e=t({components:{DashboardStats:a},data(){return{stats:[{title:"Total Karyawan",value:"124"},{title:"Absensi Hari Ini",value:"118"},{title:"Izin Pending",value:"5"},{title:"Tugas Pending",value:"23"}]}}});document.getElementById("vue-root")&&e.mount("#vue-root");
