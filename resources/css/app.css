@@ -48,6 +48,19 @@
     .gradient-text {
         @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600;
     }
+
+    .stat-card-blue {
+        @apply relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 p-6 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 hover:-translate-y-1 transition-all duration-300;
+    }
+    .stat-card-green {
+        @apply relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500 to-green-700 p-6 text-white shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-300;
+    }
+    .stat-card-amber {
+        @apply relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white shadow-lg shadow-amber-500/25 hover:shadow-xl hover:shadow-amber-500/30 hover:-translate-y-1 transition-all duration-300;
+    }
+    .stat-card-purple {
+        @apply relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-500 to-violet-700 p-6 text-white shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30 hover:-translate-y-1 transition-all duration-300;
+    }
 }
 
 @layer utilities {
@@ -57,59 +70,5 @@
     }
     .scrollbar-hide::-webkit-scrollbar {
         display: none;
-    }
-    .animate-fade-in-down {
-        animation: fadeInDown 0.5s ease-out;
-    }
-    .animate-fade-in-up {
-        animation: fadeInUp 0.5s ease-out;
-    }
-    .animate-pulse-slow {
-        animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-    .animate-bounce-slow {
-        animation: bounce 2s infinite;
-    }
-}
-
-@keyframes fadeInDown {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(-25%);
-        animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-    50% {
-        transform: translateY(0);
-        animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     }
 }

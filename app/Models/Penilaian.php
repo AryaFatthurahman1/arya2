@@ -9,7 +9,7 @@ class Penilaian extends Model
 {
     use HasFactory;
 
-    protected $table = 'penilaian_kinerja';
+    protected $table = 'penilaian';
 
     protected $fillable = [
         'karyawan_id',

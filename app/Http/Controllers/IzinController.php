@@ -101,6 +101,37 @@ class IzinController extends Controller
         return redirect()->route('leaves.index')->with('success', 'Izin berhasil ditolak');
     }
 
+    public function edit(PengajuanIzin $izin)
+    {
+        $izin->load('karyawan');
+        $karyawan = Karyawan::orderBy('nama_lengkap')->get();
+        return view('izin.edit', compact('izin', 'karyawan'));
+    }
+
+    public function update(Request $request, PengajuanIzin $izin)
+    {
+        $validator = Validator::make($request->all(), [
+            'karyawan_id' => 'required|exists:karyawan,id',
+            'jenis_izin' => 'required|in:sakit,cuti,izin_khusus',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'alasan' => 'required|string|max:1000',
+            'bukti_dokumen' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+        ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        $data = $request->except('bukti_dokumen');
+        if ($request->hasFile('bukti_dokumen')) {
+            if ($izin->bukti_dokumen) {
+                Storage::disk('public')->delete($izin->bukti_dokumen);
+            }
+            $data['bukti_dokumen'] = $request->file('bukti_dokumen')->store('izin', 'public');
+        }
+        $izin->update($data);
+        return redirect()->route('leaves.index')->with('success', 'Pengajuan izin berhasil diperbarui');
+    }
+
     public function destroy(PengajuanIzin $izin)
     {
         if ($izin->bukti_dokumen) {

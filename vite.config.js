@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/react.jsx',
                 'resources/js/vue.js',
+                'resources/ts/main.tsx',
             ],
             refresh: true,
         }),
@@ -19,11 +20,11 @@ export default defineConfig({
     ],
     build: {
         sourcemap: false,
-        minify: 'esbuild',
+        minify: 'oxc',
         rollupOptions: {
             output: {
-                manualChunks: {
-                    vendor: ['react', 'react-dom', 'vue'],
+                manualChunks: (id) => {
+                    if (id.includes('node_modules/react') || id.includes('node_modules/vue')) return 'vendor';
                 },
             },
         },

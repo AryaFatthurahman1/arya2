@@ -70,13 +70,13 @@ class DashboardController extends Controller
 
         // Performance statistics
         $performanceStats = [
-            'avg_rating' => Penilaian::avg('nilai') ?? 0,
+            'avg_rating' => Penilaian::avg('total_nilai') ?? 0,
             'total_reviews' => Penilaian::count(),
         ];
 
         // Payroll statistics
         $payrollStats = [
-            'total_payroll' => Penggajian::whereMonth('periode_bulan', Carbon::now()->month)->sum('total_gaji_bersih'),
+            'total_payroll' => Penggajian::whereMonth('periode', Carbon::now()->month)->sum('total_gaji'),
             'paid_count' => Penggajian::where('status', 'dibayar')->count(),
             'pending_count' => Penggajian::where('status', 'pending')->count(),
         ];

@@ -44,7 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // === Employee Management ===
-    Route::prefix('dashboard/employees')->name('employees.')->group(function () {
+    Route::prefix('dashboard/employees')->name('karyawan.')->group(function () {
         Route::get('/', [KaryawanController::class, 'index'])->name('index');
         Route::get('/create', [KaryawanController::class, 'create'])->name('create');
         Route::post('/', [KaryawanController::class, 'store'])->name('store');
@@ -58,7 +58,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // === Attendance Management ===
-    Route::prefix('dashboard/attendance')->name('attendance.')->group(function () {
+    Route::prefix('dashboard/attendance')->name('absensi.')->group(function () {
         Route::get('/', [AbsensiController::class, 'index'])->name('index');
         Route::get('/create', [AbsensiController::class, 'create'])->name('create');
         Route::post('/', [AbsensiController::class, 'store'])->name('store');
@@ -98,7 +98,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // === Performance Management ===
-    Route::prefix('dashboard/performance')->name('performance.')->group(function () {
+    Route::prefix('dashboard/performance')->name('penilaian.')->group(function () {
         Route::get('/', [PenilaianController::class, 'index'])->name('index');
         Route::get('/create', [PenilaianController::class, 'create'])->name('create');
         Route::post('/', [PenilaianController::class, 'store'])->name('store');
@@ -109,7 +109,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // === Payroll Management ===
-    Route::prefix('dashboard/payroll')->name('payroll.')->group(function () {
+    Route::prefix('dashboard/payroll')->name('penggajian.')->group(function () {
         Route::get('/', [PenggajianController::class, 'index'])->name('index');
         Route::get('/create', [PenggajianController::class, 'create'])->name('create');
         Route::post('/', [PenggajianController::class, 'store'])->name('store');
@@ -123,7 +123,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // === Documents ===
-    Route::prefix('dashboard/documents')->name('documents.')->group(function () {
+    Route::prefix('dashboard/documents')->name('dokumen.')->group(function () {
         Route::get('/', [DokumenController::class, 'index'])->name('index');
         Route::get('/create', [DokumenController::class, 'create'])->name('create');
         Route::post('/', [DokumenController::class, 'store'])->name('store');
@@ -145,9 +145,9 @@ Route::middleware('auth')->group(function () {
     });
 
     // === Master Data (Jabatan & Satuan Kerja) ===
-    Route::prefix('dashboard/master')->name('master.')->group(function () {
-        Route::resource('jabatan', JabatanController::class);
-        Route::resource('satuan-kerja', SatuanKerjaController::class);
+    Route::prefix('dashboard/master')->group(function () {
+        Route::resource('jabatan', JabatanController::class)->names('jabatan');
+        Route::resource('satuan-kerja', SatuanKerjaController::class)->names('satuan-kerja');
     });
 
     // === Notifications ===

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
@@ -20,46 +19,50 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:255',
+            'login' => 'required|string|max:255',
             'password' => 'required|string|min:6',
             'remember' => 'boolean',
         ], [
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Format email tidak valid',
+            'login.required' => 'Nama atau email wajib diisi',
             'password.required' => 'Password wajib diisi',
         ]);
 
         if ($validator->fails()) {
-            Log::warning('Login validation failed', [
+            Log::warning('Login validasi gagal', [
                 'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
                 'errors' => $validator->errors(),
             ]);
             return back()->withErrors($validator)->withInput();
         }
 
-        $credentials = $request->only('email', 'password');
+        $login = $request->input('login');
+        $password = $request->input('password');
 
-        if (Auth::attempt($credentials, $request->remember)) {
+        $user = User::where('email', $login)
+            ->orWhere('name', $login)
+            ->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            Auth::login($user, $request->boolean('remember'));
             $request->session()->regenerate();
-            Log::info('User logged in successfully', [
-                'user_id' => Auth::id(),
+
+            Log::info('Login berhasil', [
+                'user_id' => $user->id,
+                'name' => $user->name,
                 'ip' => $request->ip(),
-                'user_agent' => $request->userAgent(),
             ]);
 
             return redirect()->intended('dashboard');
         }
 
-        Log::warning('Login attempt failed', [
-            'email' => $request->email,
+        Log::warning('Login gagal', [
+            'login' => $login,
             'ip' => $request->ip(),
-            'user_agent' => $request->userAgent(),
         ]);
 
         return back()->withErrors([
-            'email' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
-        ])->onlyInput('email');
+            'login' => 'Nama/email atau password salah.',
+        ])->onlyInput('login');
     }
 
     public function showTwoFactorForm()
@@ -69,7 +72,6 @@ class AuthController extends Controller
 
     public function verifyTwoFactor(Request $request)
     {
-        // 2FA disabled for development. Log in to dashboard.
         $request->session()->put('2fa_passed', true);
         return redirect()->intended('dashboard');
     }
@@ -81,7 +83,7 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        Log::info('User logged out', ['user_id' => $userId]);
+        Log::info('User logout', ['user_id' => $userId]);
 
         return redirect('/');
     }
